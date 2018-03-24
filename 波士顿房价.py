@@ -32,9 +32,10 @@ for i in range(k):  # 每次验证，验证集都改变了
     val_data = train_data[i * num_val_samples: (i + 1) * num_val_samples]
     val_targets = train_targets[i * num_val_samples: (i + 1) * num_val_samples]
 
-    partial_train_data = np.concatenate([train_data[:i * num_val_samples],
-                                         train_data[(i + 1) * num_val_samples:]],
-                                        axis=0)
+    partial_train_data = np.concatenate(
+        [train_data[:i * num_val_samples],
+         train_data[(i + 1) * num_val_samples:]],
+        axis=0)
     partial_train_targets = np.concatenate(
         [train_targets[:i * num_val_samples],
          train_targets[(i + 1) * num_val_samples:]],
@@ -102,5 +103,5 @@ plt.show()
 model = build_model()
 # Train it on the entirety of the data.
 model.fit(train_data, train_targets,
-epochs=80, batch_size=16, verbose=0)
+          epochs=80, batch_size=16, verbose=0)
 test_mse_score, test_mae_score = model.evaluate(test_data, test_targets)
