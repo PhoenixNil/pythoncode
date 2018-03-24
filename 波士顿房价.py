@@ -97,3 +97,10 @@ plt.plot(range(1, len(smooth_mae_history) + 1), smooth_mae_history)
 plt.xlabel('Epochs')
 plt.ylabel('Validation MAE')
 plt.show()
+
+# Get a fresh, compiled model.
+model = build_model()
+# Train it on the entirety of the data.
+model.fit(train_data, train_targets,
+epochs=80, batch_size=16, verbose=0)
+test_mse_score, test_mae_score = model.evaluate(test_data, test_targets)
