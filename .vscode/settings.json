@@ -1,3 +1,4 @@
 {
-    "files.defaultLanguage": "python"
+    "editor.snippetSuggestions": "top",
+    "python.pythonPath": "C:\\Users\\AW\\AppData\\Local\\Programs\\Python\\Python36\\python.exe"
 }
