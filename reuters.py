@@ -1,11 +1,12 @@
-from keras.datasets import reuters
-import numpy as np
-from keras.utils.np_utils import to_categorical
-from keras import models
-from keras import layers
-import matplotlib.pyplot as plt
 import copy
 import os
+
+import matplotlib.pyplot as plt
+import numpy as np
+from keras import layers, models
+from keras.datasets import reuters
+from keras.utils.np_utils import to_categorical
+
 (train_data, train_labels), (test_data,
                              test_labels) = reuters.load_data(num_words=10000)
 word_index = reuters.get_word_index()
