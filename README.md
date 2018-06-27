@@ -1,3 +1,1 @@
-# pythoncode
-# pythoncode
-# pythoncode
+my and  python about interesting thing :)
