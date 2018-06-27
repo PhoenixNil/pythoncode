@@ -65,7 +65,7 @@ for i in range(k):
         [train_targets[:i * num_val_samples],
          train_targets[(i + 1) * num_val_samples:]], axis=0)
 
-    model = bulid_model()
+    model = build_model()
     history = model.fit(partial_train_data, partial_train_targets,
                         validation_data=(val_data, val_targets),
                         epochs=num_epochs, batch_size=1, verbose=0)
