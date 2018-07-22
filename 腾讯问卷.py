@@ -19,7 +19,6 @@ url = requests.get('https://wj.qq.com/sur/get_survey?id=2166945&hash=249f&logger
                    headers=headers)  # we need this json!!
 url.encoding = 'utf-8'
 Data = json.loads(url.text)
-# print(Data['data']['pages'][0]['questions'])
 del(Data['data']['pages'][0]['questions'][0])  # delate  excess
 k = Data['data']['pages'][0]['questions']
 for title in k:
