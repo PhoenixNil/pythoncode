@@ -1,0 +1,21 @@
+{
+    "editor.snippetSuggestions": "top",
+    "python.pythonPath": "C:\\Users\\ALIENWARE\\AppData\\Local\\Programs\\Python\\Python38-32\\python.exe",
+    "editor.fontSize": 15,
+    "python.testing.pytestArgs": [
+        "."
+    ],
+    "python.testing.unittestEnabled": true,
+    "python.testing.nosetestsEnabled": false,
+    "python.testing.pytestEnabled": false,
+    "editor.fontFamily": "Fira Code",
+    "editor.fontLigatures": true,
+    "python.linting.enabled": true,
+    "python.testing.unittestArgs": [
+        "-v",
+        "-s",
+        ".",
+        "-p",
+        "*test.py"
+    ],
+}

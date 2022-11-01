@@ -1,0 +1,5 @@
+a = input('请输入小时数')
+b = input('请输入费率')
+hour = int(a)
+rate = float(b)
+print('you pay is', hour * rate)

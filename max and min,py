@@ -1,0 +1,17 @@
+Maximum = None
+Minimum = None
+while True:
+    num = input("Enter a number: ")
+    try:
+        num1=int(num)
+        for small in [num1]:#需要定义一个列表才能循环！
+            if Minimum is None or small<Minimum :
+                Minimum=num1
+        for big in [num1]:
+            if Maximum is None or big>Maximum :#None的情况是没有输入数字就直接结束，所以输出的值直接是None,第二种情况是存在大于MAX的数
+                Maximum=num1
+    except:
+        if num == "done" : break
+        print('Invalid input')
+print('Maximum is ',Maximum)
+print('Minimum is ',Minimum)
