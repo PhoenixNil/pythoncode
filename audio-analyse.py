@@ -1,4 +1,3 @@
-from time import sleep
 import azure.cognitiveservices.speech as speechsdk
 from azure.cognitiveservices.speech.audio import AudioOutputConfig
 
