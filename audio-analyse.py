@@ -2,27 +2,35 @@ from time import sleep
 import azure.cognitiveservices.speech as speechsdk
 from azure.cognitiveservices.speech.audio import AudioOutputConfig
 
+
 def recognize_from_mic():
-	#Find your key and resource region under the 'Keys and Endpoint' tab in your Speech resource in Azure Portal
-	#Remember to delete the brackets <> when pasting your key and region!
-    speech_config = speechsdk.SpeechConfig(subscription="6c96fa096e8a41b6b96cfcfe2976f303", region="eastus")
+    # Find your key and resource region under the 'Keys and Endpoint' tab in your Speech resource in Azure Portal
+    # Remember to delete the brackets <> when pasting your key and region!
+    speech_config = speechsdk.SpeechConfig(
+        subscription="6c96fa096e8a41b6b96cfcfe2976f303", region="eastus")
     speech_recognizer = speechsdk.SpeechRecognizer(speech_config=speech_config)
-    
-    #Asks user for mic input and prints transcription result on screen
+
+    # Asks user for mic input and prints transcription result on screen
     print("Speak into your microphone.")
     result = speech_recognizer.recognize_once_async().get()
     print(result.text)
 
+
 recognize_from_mic()
+
+
 def synthesize_to_speaker():
-	#Find your key and resource region under the 'Keys and Endpoint' tab in your Speech resource in Azure Portal
-	#Remember to delete the brackets <> when pasting your key and region!
-    speech_config = speechsdk.SpeechConfig(subscription="6c96fa096e8a41b6b96cfcfe2976f303", region="eastus")
-    #In this sample we are using the default speaker 
-    #Learn how to customize your speaker using SSML in Azure Cognitive Services Speech documentation
+    # Find your key and resource region under the 'Keys and Endpoint' tab in your Speech resource in Azure Portal
+    # Remember to delete the brackets <> when pasting your key and region!
+    speech_config = speechsdk.SpeechConfig(
+        subscription="6c96fa096e8a41b6b96cfcfe2976f303", region="eastus")
+    # In this sample we are using the default speaker
+    # Learn how to customize your speaker using SSML in Azure Cognitive Services Speech documentation
     audio_config = AudioOutputConfig(use_default_speaker=True)
-    synthesizer = speechsdk.SpeechSynthesizer(speech_config=speech_config, audio_config=audio_config)
+    synthesizer = speechsdk.SpeechSynthesizer(
+        speech_config=speech_config, audio_config=audio_config)
     synthesizer.speak_text_async("Enter some text to synthesize.")
+
 
 synthesize_to_speaker()
 # def recognize_from_microphone():
@@ -41,7 +49,7 @@ synthesize_to_speaker()
 #     if translation_recognition_result.reason == speechsdk.ResultReason.TranslatedSpeech:
 #         print("Recognized: {}".format(translation_recognition_result.text))
 #         print("""Translated into '{}': {}""".format(
-#             target_language, 
+#             target_language,
 #             translation_recognition_result.translations[target_language]))
 #     elif translation_recognition_result.reason == speechsdk.ResultReason.NoMatch:
 #         print("No speech could be recognized: {}".format(translation_recognition_result.no_match_details))
@@ -55,4 +63,3 @@ synthesize_to_speaker()
 # recognize_from_microphone()
 
 # 语音翻译
-
