@@ -4,13 +4,13 @@ from Pyro5.api import Proxy
 
 # Check that the Python file library.py exists.
 import os.path
-if(os.path.isfile("library.py")==False):
-	print("Error you need to call the Python file library.py!")
+if (os.path.isfile("library.py") == False):
+    print("Error you need to call the Python file library.py!")
 
 # Check that the class is called library. That is, the file library.py contains the expression "library(object):"
 file_text = open('library.py', 'r').read()
-if("library(object):" not in file_text):
-	print("Error you need to call the Python class library!")
+if ("library(object):" not in file_text):
+    print("Error you need to call the Python class library!")
 
 sys.excepthook = Pyro5.errors.excepthook
 rental_object = Proxy("PYRONAME:example.library")
