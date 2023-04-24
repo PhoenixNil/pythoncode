@@ -18,11 +18,11 @@ class library(object):
         return self.users
 
     def delete_user(self, name):
-            if self.users[name] == name and self.users_loans[name] == 0:
-                del self.users[name]
-                return 1
-            else:
-                return 0
+        if self.users[name] == name and self.users_loans[name] == 0:
+            del self.users[name]
+            return 1
+        else:
+            return 0
 
     def add_author(self, name, category):
         self.authors[name] = category
@@ -67,10 +67,10 @@ class library(object):
             if len(book_info) > 2:
                 books_loan[title] = str(self.books[title]['copies'] +
                                         len(book_info) - 2)+' '+'copies have been borrowed'
-            if books_loan:
-                return books_loan
-            else:
-                return 'No books have been borrowed'
+        if books_loan:
+            return books_loan
+        else:
+            return 'No books have been borrowed'
 
     def end_book_loan(self, user, title, year, month, day):
         if user in self.books[title]:
@@ -87,16 +87,20 @@ class library(object):
             del self.books[title]
 
     def user_loans_date(self, user, start_year, start_month, start_day, end_year, end_month, end_day):
+        if user not in self.users:
+            return "Invalid user"
         user_loans = []
         C = datetime(start_year, start_month, start_day)
         D = datetime(end_year, end_month, end_day)
         for title, book_info in self.users[user]['book_info'].items():
             A = datetime(book_info[1][0], book_info[1][1], book_info[1][2])
             B = datetime(book_info[2][0], book_info[2][1], book_info[2][2])
-
             if C <= A <= D and C <= B <= D:
                 user_loans.append(title)
-        return user_loans
+        if user_loans:
+            return user_loans
+        else:
+            return 'this user has not borrowed any books in this time period'
 
 
 P1 = library()
