@@ -1,5 +1,11 @@
 import requests
 from bs4 import BeautifulSoup
+import socket
+
+#get ip address of google safe search
+domain = 'forcesafesearch.google.com'
+ip = socket.gethostbyname(domain)
+
 # 发送HTTP GET请求获取网页内容
 url = "https://www.fobnotes.com/tools/google-global-country-sites/"  
 url2= "https://zhuanlan.zhihu.com/p/83273024" 
@@ -31,7 +37,8 @@ if response2.status_code == 200:
 else:
     print("请求失败，错误代码:", response.status_code)
 
-address_domin=["2001:4860:4802:32::78 "+ element[:-1].replace("https://", "") +" #forcesafesearch" for element in googledomain] #去掉最后的/
+
+address_domin=[f"{ip} "+ element[:-1].replace("https://", "") +" #forcesafesearch" for element in googledomain] #去掉最后的/
 sort_merge_address_domin= sorted(list(set(address_domin)))
 for i in sort_merge_address_domin:
     print(i)
