@@ -1,44 +1,55 @@
-import requests
+# Optimized version of the code
 from bs4 import BeautifulSoup
+import requests
 import socket
 
-#get ip address of google safe search
-domain = 'forcesafesearch.google.com'
+# Function to send HTTP GET request and parse the webpage content
+def get_links_from_url(url, is_zhihu=False):
+    response = requests.get(url)
+    domain_set = set()
+
+    # Check if the request is successful
+    if response.status_code == 200:
+        soup = BeautifulSoup(response.content, "html.parser")
+        links = []
+
+        # Find all the links
+        if is_zhihu:
+            class_element = soup.find(class_="RichText ztext Post-RichText css-1g0fqss")
+            if class_element:
+                links = class_element.find_all("a")
+        else:
+            links = soup.find_all("a")
+
+        for link in links:
+            domain = link.get("href")
+            if "google" in domain:
+                if is_zhihu:
+                    domain = domain.replace("https://link.zhihu.com/?target=https%3A//", "")
+                if len(domain) < 30:
+                    domain_set.add(domain.replace("https://", "").rstrip("/"))
+    else:
+        print(f"Request to {url} failed, error code: {response.status_code}")
+
+    return domain_set
+
+# Get IP address of google safe search
+domain = "forcesafesearch.google.com"
 ip = socket.gethostbyname(domain)
 
-# 发送HTTP GET请求获取网页内容
-url = "https://www.fobnotes.com/tools/google-global-country-sites/"  
-url2= "https://zhuanlan.zhihu.com/p/83273024" 
-response = requests.get(url)
-response2 = requests.get(url2)
-googledomain=[]
-# 检查请求是否成功
-if response.status_code == 200:
-    # 使用BeautifulSoup解析网页内容
-    soup = BeautifulSoup(response.content, "html.parser")
+# URLs to send HTTP GET request
+url1 = "https://www.fobnotes.com/tools/google-global-country-sites/"
+url2 = "https://zhuanlan.zhihu.com/p/83273024"
 
-    # 找到所有的链接
-    links = soup.find_all("a")
-    for link in links :
-        if "google" in link.get("href")  and len(link.get("href"))<30:
-            googledomain.append(link.get("href"))
-else:
-    print("请求失败，错误代码:", response.status_code)
+# Get the domains from the URLs
+domains = get_links_from_url(url1)
+domains.update(get_links_from_url(url2, is_zhihu=True))
 
-if response2.status_code == 200:
-    soup = BeautifulSoup(response2.content, "html.parser")
-    class_element = soup.find(class_="RichText ztext Post-RichText css-1g0fqss")
-    # 找到所有的链接
-    if class_element:
-        # print(class_element.find_all("a"))
-        for link in class_element.find_all("a"):
-            googledomain.append(link.get("href").replace("https://link.zhihu.com/?target=https%3A//", ""))
+# Generate the address domain list
+address_domain = [f"{ip} {domain} #forcesafesearch" for domain in domains]
 
-else:
-    print("请求失败，错误代码:", response.status_code)
+# Sort the address domain list
+sorted_address_domain = sorted(address_domain)
 
-
-address_domin=[f"{ip} "+ element[:-1].replace("https://", "") +" #forcesafesearch" for element in googledomain] #去掉最后的/
-sort_merge_address_domin= sorted(list(set(address_domin)))
-for i in sort_merge_address_domin:
-    print(i)
+for domain in sorted_address_domain:
+    print(domain)
